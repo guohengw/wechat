@@ -29,32 +29,26 @@ public class BaiduPlaceResponse {
 		Document  doc = builder.parse(IOUtils.toInputStream(xml,"utf-8"));
 		Element root=doc.getDocumentElement();
 		for(Node node = root.getFirstChild();node!= null;node = node.getNextSibling()){
-			if(node.getNodeName().equalsIgnoreCase("results")){
-				NodeList nodeList =node.getChildNodes();//results-result
-				for(int i = 0;i<nodeList.getLength();i++){
-					Node rNode = nodeList.item(i);
-					if(rNode.getNodeName().equalsIgnoreCase("result")){
-						BaiduPlaceResponse res = new BaiduPlaceResponse();
-						NodeList subList = rNode.getChildNodes();
-						
-						for(int j = 0;j<subList.getLength();j++){
-							Node mNode = subList.item(j);
-							if(mNode.getNodeName().equalsIgnoreCase("name")){
-								res.setName(mNode.getTextContent());
-							}
-							else if(mNode.getNodeName().equalsIgnoreCase("address")){
-								res.setAddress(mNode.getTextContent());
-							}
-							else if(mNode.getNodeName().equalsIgnoreCase("telephone")){
-								res.setTelephone(mNode.getTextContent());
-							}
-							else if(mNode.getNodeName().equalsIgnoreCase("detail_url")){
-								res.setDetailUrl(mNode.getTextContent());
-							}
-							else if (mNode.getNodeName().equalsIgnoreCase("location")){
-								NodeList lNodes = mNode.getChildNodes();
-								for(int k=0;k<lNodes.getLength();k++){
-									Node lnode = lNodes.item(k);
+			if(node.getNodeName().equalsIgnoreCase("result")){
+				BaiduPlaceResponse res = new BaiduPlaceResponse();
+				NodeList subList = node.getChildNodes();
+				for(int j = 0;j<subList.getLength();j++){
+					Node mNode = subList.item(j);
+					if(mNode.getNodeName().equalsIgnoreCase("name")){
+						res.setName(mNode.getTextContent());
+					}
+					else if(mNode.getNodeName().equalsIgnoreCase("formatted_address")){
+						res.setAddress(mNode.getTextContent());
+					}
+					else if (mNode.getNodeName().equalsIgnoreCase("geometry")){
+						NodeList gNodes = mNode.getChildNodes();
+						for(int k=0;k<gNodes.getLength();k++){
+							Node gnode = gNodes.item(k);
+							if(gnode.getNodeName().equalsIgnoreCase("location")){
+								NodeList lNodes = gnode.getChildNodes();
+
+								for(int p=0;p<lNodes.getLength();p++){
+									Node lnode = lNodes.item(p);
 									if(lnode.getNodeName().equalsIgnoreCase("lat")){
 										res.setLat(lnode.getTextContent());
 									}
@@ -65,10 +59,57 @@ public class BaiduPlaceResponse {
 								
 							}
 						}
-						resList.add(res);
+						
 					}
 				}
+				resList.add(res);
+				
 			}
+			
+			
+			
+			
+			
+//			if(node.getNodeName().equalsIgnoreCase("results")){
+//				NodeList nodeList =node.getChildNodes();//results-result
+//				for(int i = 0;i<nodeList.getLength();i++){
+//					Node rNode = nodeList.item(i);
+//					if(rNode.getNodeName().equalsIgnoreCase("result")){
+//						BaiduPlaceResponse res = new BaiduPlaceResponse();
+//						NodeList subList = rNode.getChildNodes();
+//						
+//						for(int j = 0;j<subList.getLength();j++){
+//							Node mNode = subList.item(j);
+//							if(mNode.getNodeName().equalsIgnoreCase("name")){
+//								res.setName(mNode.getTextContent());
+//							}
+//							else if(mNode.getNodeName().equalsIgnoreCase("address")){
+//								res.setAddress(mNode.getTextContent());
+//							}
+//							else if(mNode.getNodeName().equalsIgnoreCase("telephone")){
+//								res.setTelephone(mNode.getTextContent());
+//							}
+//							else if(mNode.getNodeName().equalsIgnoreCase("detail_url")){
+//								res.setDetailUrl(mNode.getTextContent());
+//							}
+//							else if (mNode.getNodeName().equalsIgnoreCase("location")){
+//								NodeList lNodes = mNode.getChildNodes();
+//								for(int k=0;k<lNodes.getLength();k++){
+//									Node lnode = lNodes.item(k);
+//									if(lnode.getNodeName().equalsIgnoreCase("lat")){
+//										res.setLat(lnode.getTextContent());
+//									}
+//									else if(lnode.getNodeName().equalsIgnoreCase("lng")){
+//										res.setLng(lnode.getTextContent());
+//									}
+//								}
+//								
+//							}
+//						}
+//						resList.add(res);
+//					}
+//				}
+//			}
 		}
 		return resList;
 	}

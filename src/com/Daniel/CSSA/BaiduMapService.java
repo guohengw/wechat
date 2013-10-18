@@ -28,8 +28,8 @@ public class BaiduMapService {
 	}
 	
 	public String palceRequestUrl(String query,String lat,String lng) throws UnsupportedEncodingException {
-		String url = WeChatConstant.BASEURL + "maps/api/place/nearbysearch/" + WeChatConstant.OUTPUTFORMAT + "?keyword=" + URLEncoder.encode(query,"UTF-8") + "&key="
-				+ WeChatConstant.MAPKEY +"&location="+lat+","+lng +"&radius=2000";
+		String url = WeChatConstant.BASEURL + "maps/api/place/textsearch/" + WeChatConstant.OUTPUTFORMAT + "?keyword=" + URLEncoder.encode(query,"UTF-8") + "&key="
+				+ WeChatConstant.MAPKEY +"&location="+lat+","+lng +"&radius=" + WeChatConstant.RADIUS + "&sensor=" + WeChatConstant.SENSOR;
 		return url;
 	}
 	
