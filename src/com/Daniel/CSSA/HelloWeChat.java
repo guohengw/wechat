@@ -138,13 +138,13 @@ public class HelloWeChat extends HttpServlet {
 			textMsg = getWeChatTextMessage(wxMsgXml);
 			//检查是不是位置
 			BaiduMapService baidu = new BaiduMapService();
-			BaiduGeoCodeResponse geo = null;
-			try {
-				geo = BaiduGeoCodeResponse.getBaiduGeoCode(baidu.getGeoCode(textMsg.getContent()));
-			} catch (Exception e) {
-				logger.log(Level.INFO,e.getMessage());
-			}
-			logger.log(Level.INFO,"geo="+geo.toString());
+//			BaiduGeoCodeResponse geo = null;
+//			try {
+//				geo = BaiduGeoCodeResponse.getBaiduGeoCode(baidu.getGeoCode(textMsg.getContent()));
+//			} catch (Exception e) {
+//				logger.log(Level.INFO,e.getMessage());
+//			}
+//			logger.log(Level.INFO,"geo="+geo.toString());
 			
 //			if(geo!= null&&geo.getLat()!=null&&geo.getLng()!=null&&geo.getLat().length()>0&&geo.getLng().length()>0){
 //				returnXml = getLocMsg("酒店", geo.getLat(),geo.getLng(),textMsg.getFromUserName());

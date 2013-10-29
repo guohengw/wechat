@@ -28,25 +28,25 @@ public class BaiduMapService {
 	}
 	
 	public String palceRequestUrl(String query,String lat,String lng) throws UnsupportedEncodingException {
-		String url = WeChatConstant.BASEURL + "maps/api/place/textsearch/" + WeChatConstant.OUTPUTFORMAT + "?keyword=" + URLEncoder.encode(query,"UTF-8") + "&key="
-				+ WeChatConstant.MAPKEY +"&location="+lat+","+lng +"&radius=" + WeChatConstant.RADIUS + "&sensor=" + WeChatConstant.SENSOR;
+		String url = WeChatConstant.BASEURL + "maps/api/place/textsearch/" + WeChatConstant.OUTPUTFORMAT + "?query=" + URLEncoder.encode(query,"UTF-8") + "&key="
+				+ WeChatConstant.MAPKEY +"&location="+lat+","+lng +"&radius=" + WeChatConstant.RADIUS + "&sensor=" + WeChatConstant.SENSOR + "&language=" + WeChatConstant.LANGUAGE;
 		return url;
 	}
 	
-	public String getGeoCode(String query) throws ClientProtocolException, IOException{
-		HttpClient httpClient = new DefaultHttpClient();
-		String url = geoCodeRequestUrl(query);
-		logger.log(Level.INFO, url);
-		HttpGet httpget = new HttpGet(url);
-		ResponseHandler<String> responseHandler = new BasicResponseHandler();
-		String responseBody = httpClient.execute(httpget, responseHandler);
-		logger.log(Level.INFO,"baidu response:"+responseBody);
-		return responseBody;
-	}
-	
-	public String geoCodeRequestUrl(String query) throws UnsupportedEncodingException{
-		String url = WeChatConstant.BASEURL + "geocoder?address=" + URLEncoder.encode(query,"UTF-8") + "&key="
-				+ WeChatConstant.MAPKEY + "&output=" + WeChatConstant.OUTPUTFORMAT + "&sensor=" + WeChatConstant.SENSOR;
-		return url;
-	}
+//	public String getGeoCode(String query) throws ClientProtocolException, IOException{
+//		HttpClient httpClient = new DefaultHttpClient();
+//		String url = geoCodeRequestUrl(query);
+//		logger.log(Level.INFO, url);
+//		HttpGet httpget = new HttpGet(url);
+//		ResponseHandler<String> responseHandler = new BasicResponseHandler();
+//		String responseBody = httpClient.execute(httpget, responseHandler);
+//		logger.log(Level.INFO,"baidu response:"+responseBody);
+//		return responseBody;
+//	}
+//	
+//	public String geoCodeRequestUrl(String query) throws UnsupportedEncodingException{
+//		String url = WeChatConstant.BASEURL + "geocoder?address=" + URLEncoder.encode(query,"UTF-8") + "&key="
+//				+ WeChatConstant.MAPKEY + "&output=" + WeChatConstant.OUTPUTFORMAT;
+//		return url;
+//	}
 }
